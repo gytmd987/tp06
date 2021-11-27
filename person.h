@@ -28,7 +28,7 @@ class Player {
         string get_name();
         int get_mp();
         int get_hp();
-                                                                                                                                                                            
+        
 };
 
 #endif
