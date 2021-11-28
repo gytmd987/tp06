@@ -1,16 +1,15 @@
-#ifndef __CARD_H__  
-#define __CARD_H__  
+#ifndef __CARD_H__
+#define __CARD_H__
 
 #include <vector>  
 #include <ctime>  
 #include <string>  
 #include <iostream> 
-#include "person.h"
 const int CARD_CNT = 25;
 
 using namespace std;
 
-
+class Player;
 class Card {
     private:
         int str;
@@ -33,7 +32,6 @@ class Card {
         int get_mp();
 
 };
-
 class Deck {
     private:
         vector<Card> card_camp;
@@ -46,11 +44,11 @@ class Deck {
         void getCard();
         void advantage();
         void print_hand();
-        int put_card(vector<int> put_list, int mp);
+        int put_card(int normal_card_num);
         friend class Player;
         void start_attack(Deck& enemyDeck, Player& enemyPlayer, Player& myPlayer);
         void print_camp(Deck& enemy, int enemy_HP, int my_HP);
-        void use_magic_card(vector<int> c, Player& Px, Player& Py);
+        void use_magic_card(int magic_card_num, Player& Px, Player& Py);
         int if_magic();
         int if_hand();
         vector<Card> get_hand();
@@ -59,3 +57,4 @@ class Deck {
 
 };
 
+#endif

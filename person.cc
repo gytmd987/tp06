@@ -1,5 +1,5 @@
-nclude "person.h"
-
+#include "person.h"
+#include <iostream>
 Player::Player() {
     maxHP = 0;
     type = 0;
@@ -58,43 +58,36 @@ void Player::end_turn() {
         HP += dot[i].second;
         if (HP > maxHP)
             HP = maxHP;
-        dot[i].first--;
-                                                
+        dot[i].first--;                                     
         }
         
 }
 
 int Player::get_type() {
-    return type;
-        
+    return type;        
 }
 
 void Player::attacked(int power) {
-    HP -= power;
-        
+    HP -= power;        
 }
 
 void Player::use_ultimate(Player& enemy, Deck& PxDeck, Deck& PyDeck) {
     int type = this->get_type();
     if (!type) {
         printf("can't use ultimate\n");
-        return;
-                                
+        return;                                
     }
     this->type = 0;
 
     if (type == 1) {
-        enemy.attacked(10);
-                            
+        enemy.attacked(10);                            
     }
     else if (type == 3) {
-        this->dot_set(4, 4);
-                            
+        this->dot_set(4, 4);                            
     }
     else {
         PxDeck.card_camp.clear();
-        PyDeck.card_camp.clear();
-                                    
+        PyDeck.card_camp.clear();                                    
     }
             
 }
@@ -102,17 +95,9 @@ void Player::use_ultimate(Player& enemy, Deck& PxDeck, Deck& PyDeck) {
 void Player::MP_adder(int num) {
     this->MP += num;
     if (this->MP > 10)
-        this->MP = 10;
-            
+        this->MP = 10;            
 }
-
-string Player::get_name() {
-    return this->name;
-        
-}
-int Player::get_mp() {
-    return this->MP;
-        
-}
-int Player::get_hp() { return this->HP;  }
+string Player::get_name() { return this->name; }
+int Player::get_mp() { return this->MP; }
+int Player::get_hp() { return this->HP; }
 
