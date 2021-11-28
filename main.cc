@@ -6,6 +6,15 @@
 #include <stdlib.h>
 using namespace std;
 
+void window_clear();
+void make_Deck();
+void get_type();
+void rule_print();
+void print_myDeck(Deck& deck, Player& player);
+void print_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ, int is_printDeck);
+bool turn_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ);
+void start_game();
+
 Deck Player1;
 Deck Player2;
 Player P1;
@@ -43,7 +52,6 @@ void get_type() {
             if (str[0] == '1' || str[0] == '2' || str[0] == '3' || str[0] == '4')
                 break;
         cout << "잘못 입력하셨습니다. 다시 입력해 주시길 바랍니다." << endl;
-
     }
     cout << "\n\t\t선공 " << name1 << " 플레이어는 " << str[0] << "번의 필살기를 선택하셨습니다.\n\n";
     P1 = Player(name1, str[0] - '0');
@@ -58,11 +66,9 @@ void get_type() {
             if (str[0] == '1' || str[0] == '2' || str[0] == '3' || str[0] == '4')
                 break;
         cout << "잘못 입력하셨습니다. 다시 입력해 주시길 바랍니다.\n";
-
     }
     cout << "\n\t\t후공 " << name2 << " 플레이어는 " << str[0] << "번의 필살기를 선택하셨습니다.\n\n\n";
     P2 = Player(name2, str[0] - '0');
-
 }
 
 void rule_print() {
@@ -73,13 +79,13 @@ void rule_print() {
     printf("\t\t\t\t│             0번 : 상대 플레이어              │\n");
     printf("\t\t\t\t│            그 외 : 상대 진영 카드            │\n");
     printf("\t\t\t\t└----------------------------------------------┘\n\n");
-
 }
 void print_myDeck(Deck& deck, Player& player) {
     printf("현재 나의 패 상태\n");
     deck.print_hand();
     printf("\n내 영웅의 상태 : ");
     player.show_state();
+
 }
 
 void print_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ, int is_printDeck) {
@@ -94,25 +100,6 @@ void print_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ, in
     cout << endl;
     if (is_printDeck) print_myDeck(PxDeck, Px);
     cout << endl << endl;
-}
-
-vector<int> delete_same_product(vector<int> arr) {
-    vector<int> check_data;
-    unsigned int cnt = 0;
-    while (cnt < arr.size()) {
-        bool check = true;
-        for (unsigned int i = 0; i < check_data.size(); i++) {
-            if (check_data[i] == arr[cnt])
-                check = false;
-
-        }
-        if (check)
-            check_data.push_back(arr[cnt]);
-        cnt++;
-
-    }
-    return check_data;
-
 }
 
 bool turn_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ) {
@@ -164,7 +151,7 @@ bool turn_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ) {
         print_start(Px, Py, PxDeck, PyDeck, typ, 1);
     }
     Px.end_turn();
-    
+
     while (PxDeck.if_hand()) {
         printf("진영에 내려놓을 일반 카드 번호를 입력하여 주세요. 내려놓을 카드가 없다면 0을 눌러주세요\n");
         int normal_card_num;
@@ -213,7 +200,7 @@ bool turn_start(Player& Px, Player& Py, Deck& PxDeck, Deck& PyDeck, int typ) {
 
 void start_game() {
     sleep(1);
-    int cnt2 = 40;
+    int cnt2 = 30;
     while(cnt2 >= 0) {
         window_clear();
         for (int cnt = cnt2/2; cnt > 0; cnt--) 
@@ -224,6 +211,7 @@ void start_game() {
         cnt2 -= 2;
         usleep(50000);
     }
+
 }
 int main() {
     window_clear();
@@ -234,13 +222,13 @@ int main() {
     while (true) {
         window_clear();
         if (turn_start(P1, P2, Player1, Player2, 0)) {
-            cout << P1.get_name() << " Player Win!!!";
+            cout << P1.get_name() << " Player Win!!!\n";
             break;
         }
         sleep(2);
         window_clear();
         if (turn_start(P2, P1, Player2, Player1, 1)) {
-            cout << P2.get_name() << " Player Win!!!";
+            cout << P2.get_name() << " Player Win!!!\n";
             break;
         }
         sleep(2);
@@ -250,5 +238,7 @@ int main() {
     printf("==================================================================================\n");
     printf("================================    GAME  END     ================================\n");
     printf("==================================================================================\n");
+    sleep(5);
+    window_clear();
 }
 

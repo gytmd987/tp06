@@ -210,6 +210,7 @@ void Deck::start_attack(Deck& enemyDeck, Player& enemyPlayer, Player& myPlayer) 
         if (tmp2 == 0) {
             enemyPlayer.attacked(pow);
             if (enemyPlayer.check() == 0) {
+                cout << endl << endl;
                 cout<< enemyPlayer.get_name()<<" 플레이어 사망\n";
                 break;
             }
